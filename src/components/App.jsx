@@ -34,7 +34,7 @@ function App() {
           path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} setMyUsername={setMyUsername} />}
         />
-        <Route path="/profile/:username"  element={<Profile myusername={myUsername} />} />
+        {/* <Route path="/profile/:username"  element={<Profile myusername={myUsername} />} /> */}
       </Routes>
     </div>
   );
