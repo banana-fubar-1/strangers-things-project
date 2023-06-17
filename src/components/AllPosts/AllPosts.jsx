@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { grabAllPosts } from "../api-adapters";
 import NewPostForm from "../NewPostForm/NewPostForm";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import { Link, useParams } from "react-router-dom";
 
 const AllPosts = ({ isLoggedIn, myUsername }) => {
   const [allPosts, setAllPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const { postId } = useParams();
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
@@ -42,11 +44,9 @@ const AllPosts = ({ isLoggedIn, myUsername }) => {
         filteredPosts.map((singlePost) => {
           return (
             <div key={singlePost._id} className="single-post-card">
-              <p>Title: {singlePost.title}</p>
-              <p>Description: {singlePost.description}</p>
-              <p>Price: {singlePost.price}</p>
-              <p>Location: {singlePost.location}</p>
-              {singlePost.author.username === myUsername ? (<DeleteButton allPosts={allPosts} setAllPosts={setAllPosts} singlePost={singlePost}/>) : null }
+              <Link to={`/posts/${singlePost._id}`}>
+                <p>{singlePost.title}</p>
+              </Link>
             </div>
           );
         })

@@ -87,36 +87,94 @@ export const deletePost = async (id) => {
     const response = await fetch(`${BASE_URL}/posts/${id}`, {
       method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
     const result = await response.json();
     console.log(result);
-    return result
+    return result;
   } catch (err) {
     console.error(err);
   }
-}
+};
 
-export const postMessage = async (id ,message) => {
+export const postMessage = async (id, message) => {
   try {
     const response = await fetch(`${BASE_URL}/posts/${id}/messages`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         message: {
-          content: message
-        }
-      })
+          content: message,
+        },
+      }),
     });
     const result = await response.json();
     console.log(result);
-    return result
+    return result;
   } catch (err) {
     console.error(err);
   }
-}
+};
+
+export const updatePost = async (postId, updatedPostInfo) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts/${postId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        body: {
+          title: updatedPostInfo.title,
+          description: updatedPostInfo.description,
+          price: updatedPostInfo.price,
+          willDeliver: updatedPostInfo.willDeliver,
+        },
+      },
+    });
+    const translatedData = response.json();
+    return translatedData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const grabSinglePost = async (postId) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/posts`);
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch posts");
+//     }
+//     const translatedData = await response.json();
+//     console.log(translatedData);
+//     const filteredData = translatedData.data.posts.filter(
+//       (post) => post._id === postId
+//     );
+//     console.log(filteredData[0]);
+//     if (filteredData.length === 0) {
+//       throw new Error("Post not found");
+//     }
+//     return filteredData[0];
+//   } catch (error) {
+//     console.log(error);
+//     return null;
+//   }
+// };
+
+export const grabSinglePost = async (postId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts`);
+    const translatedData = await response.json();
+    let post = await translatedData.data.posts.filter(
+      (p) => p._id === postId
+    )[0];
+
+    return post;
+  } catch (error) {
+    console.log(error);
+  }
+};
