@@ -5,8 +5,8 @@ function NewPostForm(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
   const [willDeliver, setWillDeliver] = useState(false);
+  const [location, setLocation] = useState("")
  const allPosts = props.allPosts
  const setAllPosts = props.setAllPosts
 
@@ -17,7 +17,7 @@ function NewPostForm(props) {
  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await postNewPost(title, description, price, willDeliver);
+      const result = await postNewPost(title, description, price, location, willDeliver);
       console.log(result)
       const allPostsCopy = [...allPosts, result.data.post]
       setAllPosts(allPostsCopy)
@@ -53,6 +53,13 @@ function NewPostForm(props) {
         name="price"
         value={price}
         onChange={(event) => setPrice(event.target.value)}
+      />
+        <label htmlFor="location">Location: </label>
+      <input
+        type="text"
+        name="location"
+        value={location}
+        onChange={(event) => setLocation(event.target.value)}
       />
       <label htmlFor="willDeliver">Will Deliver: </label>
       <input

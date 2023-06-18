@@ -6,6 +6,7 @@ import { Routes, Route, useParams } from "react-router-dom";
 import Login from "./Login/Login";
 import SinglePost from "./SinglePost/SinglePost";
 import { grabAllPosts } from "./api-adapters";
+import Profile from "./Profile/Profile";
 
 import "./App.css";
 
@@ -37,7 +38,7 @@ function App() {
   return (
     <div>
       <h1>Welcome to Strangers Things</h1>
-      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUsername={myUsername} />
       <Routes>
         <Route
           path="/"
@@ -65,6 +66,16 @@ function App() {
           path="/posts/:postId"
           element={
             <SinglePost
+              allPosts={allPosts}
+              setAllPosts={setAllPosts}
+              myUsername={myUsername}
+            />
+          }
+          />
+        <Route
+          path="/profile/:myUsername"
+          element={
+            <Profile
               allPosts={allPosts}
               setAllPosts={setAllPosts}
               myUsername={myUsername}

@@ -58,7 +58,7 @@ export const grabAllPosts = async () => {
   }
 };
 
-export const postNewPost = async (title, description, price, willDeliver) => {
+export const postNewPost = async (title, description, price, location, willDeliver) => {
   try {
     const response = await fetch(`${BASE_URL}/posts`, {
       method: "POST",
@@ -71,6 +71,7 @@ export const postNewPost = async (title, description, price, willDeliver) => {
           title: title,
           description: description,
           price: price,
+          location: location,
           willDeliver: willDeliver,
         },
       }),
@@ -132,6 +133,7 @@ export const updatePost = async (postId, updatedPostInfo) => {
           title: updatedPostInfo.title,
           description: updatedPostInfo.description,
           price: updatedPostInfo.price,
+          location: updatedPostInfo.location,
           willDeliver: updatedPostInfo.willDeliver,
         },
       },
@@ -176,5 +178,21 @@ export const grabSinglePost = async (postId) => {
     return post;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const myData = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
   }
 };

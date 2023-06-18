@@ -3,6 +3,7 @@ import { grabSinglePost } from "../api-adapters";
 import { useParams } from "react-router-dom";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import { updatePost } from "../api-adapters";
+import MessageButton from "../MessageButton/MessageButton.jsx";
 
 function SinglePost({ myUsername, allPosts, setAllPosts }) {
   const [editMode, setEditMode] = useState(false);
@@ -41,6 +42,10 @@ function SinglePost({ myUsername, allPosts, setAllPosts }) {
     return <p>Loading...</p>;
   }
 
+if (!postInfo) {
+  return <p>This posting has been deleted!</p>
+}
+
   const renderEditButton =
     postInfo.author && postInfo.author.username === myUsername && !editMode;
 
@@ -50,7 +55,14 @@ function SinglePost({ myUsername, allPosts, setAllPosts }) {
       <p>Description: {postInfo.description}</p>
       <p>Price: {postInfo.price}</p>
       <p>Location: {postInfo.location}</p>
-      {postInfo.author.username === myUsername ? (
+      {postInfo.author.username !== myUsername ? (
+        <MessageButton
+          allPosts={allPosts}
+          setAllPosts={setAllPosts}
+          postInfo={postInfo}
+        />
+      ) : null}
+      {(postInfo.author.username === myUsername || myUsername === "admin")? (
         <DeleteButton
           allPosts={allPosts}
           setAllPosts={setAllPosts}
