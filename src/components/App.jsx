@@ -37,8 +37,11 @@ function App() {
 
   return (
     <div>
-      <h1>Welcome to Strangers Things</h1>
-      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUsername={myUsername} />
+      <NavBar
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        myUsername={myUsername}
+      />
       <Routes>
         <Route
           path="/"
@@ -71,7 +74,7 @@ function App() {
               myUsername={myUsername}
             />
           }
-          />
+        />
         <Route
           path="/profile/:myUsername"
           element={

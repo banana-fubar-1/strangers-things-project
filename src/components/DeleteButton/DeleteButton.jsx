@@ -17,7 +17,11 @@ function DeleteButton(props) {
       console.log(error);
     }
   };
-  return <button onClick={handleDelete}>Delete</button>;
+  return (
+    <button onClick={handleDelete} className="mr-2 mb-3">
+      Delete
+    </button>
+  );
 }
 
 export default DeleteButton;
