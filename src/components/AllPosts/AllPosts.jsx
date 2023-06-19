@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { grabAllPosts } from "../api-adapters";
 import NewPostForm from "../NewPostForm/NewPostForm";
-import DeleteButton from "../DeleteButton/DeleteButton";
 import { Link, useParams } from "react-router-dom";
 
 const AllPosts = ({ isLoggedIn, myUsername }) => {
@@ -26,10 +25,10 @@ const AllPosts = ({ isLoggedIn, myUsername }) => {
 
   const filteredPosts = allPosts.filter((post) => {
     return (
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.description.toLowerCase().includes(searchQuery.toLowerCase())
+      post.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
+
 
   return (
     <div>

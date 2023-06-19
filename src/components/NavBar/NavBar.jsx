@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ isLoggedIn, setIsLoggedIn }) => {
+const NavBar = ({ isLoggedIn, setIsLoggedIn, myUsername }) => {
   return (
     <div>
       {isLoggedIn ? (
         <>
           <Link to="/">Home </Link>
-          <Link to="/profile/:username">Profile</Link>
+          <Link to={`/profile/${myUsername}`}>Profile</Link>
           <button
             onClick={() => {
               setIsLoggedIn(false);
